@@ -179,8 +179,11 @@ class TestCases(unittest.TestCase):
     pass
 
     # Part 1
-    # test population_total
-
+    def test_population_total(self):
+        values = reduced_data
+        results = hw3.population_total(values)
+        expected =318857056
+        self.assertEqual(expected, results)
     # Part 2
     # test filter_by_state
 
