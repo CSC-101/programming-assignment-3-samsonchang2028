@@ -2,6 +2,8 @@ import data
 import build_data
 import unittest
 
+import hw3
+from build_data import get_data
 
 # These two values are defined to support testing below. The
 # data within these structures should not be modified. Doing
@@ -179,21 +181,109 @@ class TestCases(unittest.TestCase):
     pass
 
     # Part 1
-    # test population_total
-
+    def test_population_total(self):
+        values = reduced_data
+        results = hw3.population_total(values)
+        expected =655813
+        self.assertEqual(expected, results)
+    def test_population_total_2(self):
+        values = get_data()
+        results = hw3.population_total(values)
+        expected =318857056
+        self.assertEqual(expected, results)
     # Part 2
-    # test filter_by_state
+    def test_filter_by_state(self):
+        counties = reduced_data
+        state = 'CA'
+        expected = [data.CountyDemographics(
+        {'Percent 65 and Older': 17.5,
+         'Percent Under 18 Years': 18.1,
+         'Percent Under 5 Years': 4.8},
+        'San Luis Obispo County',
+        {"Bachelor's Degree or Higher": 31.5,
+         'High School or Higher': 89.6},
+        {'American Indian and Alaska Native Alone': 1.4,
+         'Asian Alone': 3.8,
+         'Black Alone': 2.2,
+         'Hispanic or Latino': 22.0,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.2,
+         'Two or More Races': 3.4,
+         'White Alone': 89.0,
+         'White Alone, not Hispanic or Latino': 69.5},
+        {'Per Capita Income': 29954,
+         'Persons Below Poverty Level': 14.3,
+         'Median Household Income': 58697},
+        {'2010 Population': 269637,
+         '2014 Population': 279083,
+         'Population Percent Change': 3.5,
+         'Population per Square Mile': 81.7},
+        'CA'),data.CountyDemographics(
+        {'Percent 65 and Older': 11.5,
+         'Percent Under 18 Years': 21.7,
+         'Percent Under 5 Years': 5.8},
+        'Yolo County',
+        {"Bachelor's Degree or Higher": 37.9,
+         'High School or Higher': 84.3},
+        {'American Indian and Alaska Native Alone': 1.8,
+         'Asian Alone': 13.8,
+         'Black Alone': 3.0,
+         'Hispanic or Latino': 31.5,
+         'Native Hawaiian and Other Pacific Islander Alone': 0.6,
+         'Two or More Races': 5.0,
+         'White Alone': 75.9,
+         'White Alone, not Hispanic or Latino': 48.3},
+        {'Per Capita Income': 27730,
+         'Persons Below Poverty Level': 19.1,
+         'Median Household Income': 55918},
+        {'2010 Population': 200849,
+         '2014 Population': 207590,
+         'Population Percent Change': 3.4,
+         'Population per Square Mile': 197.9},
+        'CA')]
+        results = hw3.filter_by_state(counties,state)
+        self.assertEqual(expected,results)
 
     # Part 3
-    # test population_by_education
+    def test_population_by_education(self):
+        counties = get_data()
+        degree = "Bachelor's Degree or Higher"
+        results = hw3.population_by_education(counties,degree)
+        expected = 87911.145
+        self.assertEqual(expected,results)
+
     # test population_by_ethnicity
-    # test population_below_poverty_level
+    def test_population_by_ethnicity(self):
+        counties = reduced_data
+        race = 'Two or More Races'
+        results = hw3.population_by_ethnicity(counties, race)
+        expected = 19.4
+        self.assertEqual(expected, results)
+    def test_population_below_poverty_level(self):
+        population = reduced_data
+        results = hw3.population_below_poverty_level(population)
+        expected = 111
+        self.assertEqual(expected,results)
 
     # Part 4
-    # test percent_by_education
-    # test percent_by_ethnicity
-    # test percent_below_poverty_level
+    def test_percent_by_education(self):
+        counties = reduced_data
+        degree = "Bachelor's Degree or Higher"
+        results = hw3.percent_by_education(counties,degree)
+        expected = .024
+        self.assertEqual(expected,results)
+        # test percent_by_ethnicity
+    def test_percent_by_ethnicity(self):
+        counties = reduced_data
+        race = 'Two or More Races'
+        results = hw3.percent_by_ethnicity(counties,race)
+        expected = .003
+        self.assertEqual(expected,results)
 
+    def test_percent_below_poverty_level(self):
+        counties = reduced_data
+        results = hw3.percent_below_poverty_level(counties)
+        expected = .0017
+        self.assertEqual(expected, results)
     # Part 5
     # test education_greater_than
     # test education_less_than

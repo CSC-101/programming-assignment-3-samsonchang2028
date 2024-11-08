@@ -37,3 +37,8 @@ class CountyDemographics:
                 self.population,
                 self.state
             )
+    def __eq__(self, other):
+        if self.county == other.county and self.population == other.population and self.age == other.age and self.education == other.education and self.ethnicities == other.ethnicities and self.income == other.income and self.state == other.state:
+            return True
+        else:
+            return False
