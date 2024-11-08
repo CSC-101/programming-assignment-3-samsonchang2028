@@ -3,6 +3,7 @@ import build_data
 import unittest
 
 import hw3
+from build_data import get_data
 
 # These two values are defined to support testing below. The
 # data within these structures should not be modified. Doing
@@ -183,6 +184,11 @@ class TestCases(unittest.TestCase):
     def test_population_total(self):
         values = reduced_data
         results = hw3.population_total(values)
+        expected =655813
+        self.assertEqual(expected, results)
+    def test_population_total_2(self):
+        values = get_data()
+        results = hw3.population_total(values)
         expected =318857056
         self.assertEqual(expected, results)
     # Part 2
@@ -238,15 +244,46 @@ class TestCases(unittest.TestCase):
         self.assertEqual(expected,results)
 
     # Part 3
-    # test population_by_education
+    def test_population_by_education(self):
+        counties = get_data()
+        degree = "Bachelor's Degree or Higher"
+        results = hw3.population_by_education(counties,degree)
+        expected = 87911.145
+        self.assertEqual(expected,results)
+
     # test population_by_ethnicity
-    # test population_below_poverty_level
+    def test_population_by_ethnicity(self):
+        counties = reduced_data
+        race = 'Two or More Races'
+        results = hw3.population_by_ethnicity(counties, race)
+        expected = 19.4
+        self.assertEqual(expected, results)
+    def test_population_below_poverty_level(self):
+        population = reduced_data
+        results = hw3.population_below_poverty_level(population)
+        expected = 111
+        self.assertEqual(expected,results)
 
     # Part 4
-    # test percent_by_education
-    # test percent_by_ethnicity
-    # test percent_below_poverty_level
+    def test_percent_by_education(self):
+        counties = reduced_data
+        degree = "Bachelor's Degree or Higher"
+        results = hw3.percent_by_education(counties,degree)
+        expected = .024
+        self.assertEqual(expected,results)
+        # test percent_by_ethnicity
+    def test_percent_by_ethnicity(self):
+        counties = reduced_data
+        race = 'Two or More Races'
+        results = hw3.percent_by_ethnicity(counties,race)
+        expected = .003
+        self.assertEqual(expected,results)
 
+    def test_percent_below_poverty_level(self):
+        counties = reduced_data
+        results = hw3.percent_below_poverty_level(counties)
+        expected = .0017
+        self.assertEqual(expected, results)
     # Part 5
     # test education_greater_than
     # test education_less_than
