@@ -1,7 +1,7 @@
 import data
 import build_data
 import unittest
-
+from data import CountyDemographics
 import hw3
 from build_data import get_data
 
@@ -245,23 +245,23 @@ class TestCases(unittest.TestCase):
 
     # Part 3
     def test_population_by_education(self):
-        counties = get_data()
+        counties = reduced_data
         degree = "Bachelor's Degree or Higher"
         results = hw3.population_by_education(counties,degree)
-        expected = 87911.145
-        self.assertEqual(expected,results)
+        expected = 195114.091
+        self.assertAlmostEqual(expected,results)
 
     # test population_by_ethnicity
     def test_population_by_ethnicity(self):
         counties = reduced_data
-        race = 'Two or More Races'
-        results = hw3.population_by_ethnicity(counties, race)
-        expected = 19.4
+        races = 'Two or More Races'
+        results = hw3.population_by_ethnicity(counties, races)
+        expected = 23613.951
         self.assertEqual(expected, results)
     def test_population_below_poverty_level(self):
         population = reduced_data
         results = hw3.population_below_poverty_level(population)
-        expected = 111
+        expected = 107712
         self.assertEqual(expected,results)
 
     # Part 4
@@ -269,29 +269,68 @@ class TestCases(unittest.TestCase):
         counties = reduced_data
         degree = "Bachelor's Degree or Higher"
         results = hw3.percent_by_education(counties,degree)
-        expected = .024
+        expected = 29.751
         self.assertEqual(expected,results)
         # test percent_by_ethnicity
     def test_percent_by_ethnicity(self):
         counties = reduced_data
         race = 'Two or More Races'
         results = hw3.percent_by_ethnicity(counties,race)
-        expected = .003
+        expected = 3.601
         self.assertEqual(expected,results)
 
     def test_percent_below_poverty_level(self):
         counties = reduced_data
         results = hw3.percent_below_poverty_level(counties)
-        expected = .0017
+        expected = 16.424
         self.assertEqual(expected, results)
     # Part 5
-    # test education_greater_than
+    def test_education_greater_than(self):
+        counties = reduced_data
+        degree = "Bachelor's Degree or Higher"
+        number = 25
+        results = hw3.education_greater_than(counties, degree,number)
+        expected = [reduced_data[2],reduced_data[3]]
+        self.assertEqual(expected,results)
     # test education_less_than
-    # test ethnicity_greater_than
-    # test ethnicity_less_than
-    # test below_poverty_level_greater_than
-    # test below_poverty_level_less_than
-
+    def test_education_less_than(self):
+        counties = reduced_data
+        degree = "Bachelor's Degree or Higher"
+        number = 25
+        results = hw3.education_less_than(counties, degree, number)
+        expected = [reduced_data[0],reduced_data[1],reduced_data[4],reduced_data[5],reduced_data[6]]
+        self.assertEqual(expected, results)
+    #
+    def test_ethnicity_greater_than(self):
+        counties = reduced_data
+        degree = 'White Alone, not Hispanic or Latino'
+        number = 90
+        results = hw3.ethnicity_greater_than(counties, degree, number)
+        expected = [reduced_data[4],reduced_data[6]]
+        self.assertEqual(expected, results)
+    #
+    def test_ethnicity_less_than(self):
+        counties = reduced_data
+        degree = 'Black Alone'
+        number = 2
+        results = hw3.ethnicity_less_than(counties, degree, number)
+        expected = [reduced_data[1],reduced_data[4],reduced_data[6]]
+        self.assertEqual(expected, results)
+    #
+    def test_below_poverty_greater_than(self):
+        counties = reduced_data
+        number = 15
+        results = hw3.below_poverty_level_greater_than(counties, number)
+        expected = [reduced_data[1],reduced_data[3],reduced_data[4],reduced_data[5]]
+        self.assertEqual(expected, results)
+    # test _than
+    def test_below_poverty_level_less_than(self):
+        counties = reduced_data
+        degree = "Bachelor's Degree or Higher"
+        number = 14
+        results = hw3.below_poverty_level_less_than(counties, number)
+        expected = [reduced_data[0],reduced_data[6]]
+        self.assertEqual(expected, results)
 
 
 if __name__ == '__main__':
